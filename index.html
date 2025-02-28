@@ -11,10 +11,26 @@
 			body {
 				background: linear-gradient(to left, #f3f165, #FEB47B); /* Sunset gradient */
 			}
+
+      languageSelector {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
 		</style>
 
 	</head>
 	<body class="is-preload">
+
+    <select id="languageSelector">
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="fr">Français</option>
+      <option value="ja">日本語</option>
+      <option value="zh-CN">中文</option>
+    </select>
 
 		<!-- Wrapper -->
 			<div id="wrapper" class="divided">
@@ -22,11 +38,11 @@
 				<!-- One -->
 					<section class="banner style1 orient-left content-align-left image-position-right fullscreen onload-image-fade-in onload-content-fade-right">
 						<div class="content">
-							<h1>Echoes of the Jaguar</h1>
-							<p class="major">A modular, highly customizable one-page book built with HTML5 UP, where users can contribute to an evolving story in real time. Readers can start with an initial narrative and collaboratively shape the plot, adding twists, new characters, or alternative endings. The design is fully responsive, making it easy to experience and edit on any device.</p>
+							<h1 id="title">Echoes of the Jaguar</h1>
+              <p id="description">A modular, highly customizable one-page book built with HTML5, where users can contribute to an evolving story in real time.</p>
+
 							<ul class="actions stacked">
-								<li><a href="#first" class="button big wide smooth-scroll-middle">Get Started</a></li>
-							</ul>
+                <li><a href="#first" class="button big wide smooth-scroll-middle" id="get-started">Get Started</a></li>
 						</div>
 						<div class="image">
 							<img src="images/IMGS/Aztec7.jpg" alt="" />
@@ -36,10 +52,10 @@
 				<!-- Two -->
 					<section class="spotlight style1 orient-right content-align-left image-position-center onscroll-image-fade-in" id="first">
 						<div class="content">
-							<h2>Chapter 1</h2>
-							<p>A dense Mesoamerican jungle at dusk, shrouded in a mystical mist that hovers just above the ground, while fireflies illuminate the scene with their soft, glowing light. The Jaguar Knight walks through the foliage, ssoaking in the the vibrant greens and browns of the jungle, adorned in intricate armor with jaguar motifs, he cautiously moves forward, his senses heightened by the whispers of ancient spirits echoing through the trees.</p>
+							<h2 id="chapter1-title">Chapter 1</h2>
+							<p id="chapter1-content">A dense Mesoamerican jungle at dusk, shrouded in a mystical mist that hovers just above the ground, while fireflies illuminate the scene with their soft, glowing light. The Jaguar Knight walks through the foliage, ssoaking in the the vibrant greens and browns of the jungle, adorned in intricate armor with jaguar motifs, he cautiously moves forward, his senses heightened by the whispers of ancient spirits echoing through the trees.</p>
 							<ul class="actions stacked">
-								<li><a href="#" class="button">Read More</a></li>
+								<li><a href="#second" class="button" id="read_more">Read More</a></li>
 							</ul>
 						</div>
 						<div class="image">
@@ -54,7 +70,7 @@
 							<p>As he steps lightly, the ground suddenly crumbles beneath him, revealing a magnificent, ancient Aztec portal glowing with golden light. The portal's intricate designs, pulsating with energy, just as the Jaguar Knight falls into a swirling vortex.
               </p>
 							<ul class="actions stacked">
-								<li><a href="#" class="button">Read More</a></li>
+								<li><a href="#fourth" class="button">Read More</a></li>
 							</ul>
 						</div>
 						<div class="image">
@@ -69,7 +85,7 @@
 							<p>Inside the vortex, the atmosphere shifts dramatically as golden glyphs swirl around him, creating a mesmerizing dance of light and symbols. Suddenly, a glitch cut occurs, and the glyphs morph into vibrant neon kanji characters, floating mid-air, illuminating the dark space with electric colors. The Knight, enveloped by ancient glyphs and modern kanji, evoking a sense of time travel and transformation. The mood shifts from suspenseful to surreal, blending the mystical with the contemporary in captivating visuals.
               </p>
 							<ul class="actions stacked">
-								<li><a href="#" class="button">Read More</a></li>
+								<li><a href="#fifth" class="button">Read More</a></li>
 							</ul>
 						</div>
 						<div class="image">
@@ -321,6 +337,94 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+      <script>
+        const apiKey = 'AIzaSyC59BjoIm3WCxr-WiNq8N-avz76arimrGY';
+        const languageSelector = document.getElementById("languageSelector");
+
+        languageSelector.addEventListener("change", function() {
+            translatePage(this.value);
+        });
+
+        function translatePage(targetLang) {
+            const elementsToTranslate = document.querySelectorAll("[data-translate]");
+
+            elementsToTranslate.forEach(el => {
+                const textToTranslate = el.textContent;
+                translateText(textToTranslate, targetLang, (translatedText) => {
+                    el.textContent = translatedText;
+                });
+            });
+        }
+
+        function translateText(text, targetLang, callback) {
+            const url = ``;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.data && data.data.translations.length > 0) {
+                        callback(data.data.translations[0].translatedText);
+                    }
+                })
+                .catch(error => console.error("Translation error:", error));
+        }
+    </script>
+    <script>
+      // Store translations
+      const translations = {
+        en: {
+          title: "Echoes of the Jaguar",
+          description: "A modular, highly customizable one-page book built with HTML5 UP, where users can contribute to an evolving story in real time...",
+          chapter1_title: "Chapter 1",
+          chapter1_content: "A dense Mesoamerican jungle at dusk, shrouded in a mystical mist that hovers just above the ground, while fireflies illuminate the scene with their soft, glowing light. The Jaguar Knight walks through the foliage, ssoaking in the the vibrant greens and browns of the jungle, adorned in intricate armor with jaguar motifs, he cautiously moves forward, his senses heightened by the whispers of ancient spirits echoing through the trees.",
+          get_started: "Get Started",
+        },
+        es: {
+          title: "Ecos del Jaguar",
+          description: "Un libro modular y altamente personalizable de una sola página construido con HTML5 UP...",
+          chapter1_title: "Capítulo 1",
+          chapter1_content: "Una densa jungla mesoamericana al anochecer, envuelta en una niebla mística que se cierne justo sobre el suelo, mientras las luciérnagas iluminan la escena con su luz suave y brillante. El Caballero Jaguar camina entre el follaje, sumergiéndose en los verdes y marrones vibrantes de la jungla, adornado con una intrincada armadura con motivos de jaguares, avanza con cautela, sus sentidos agudizados por los susurros de espíritus antiguos que resuenan a través de los árboles.",
+          get_started: "Comenzar",
+        },
+        fr: {
+          title: "Les Échos du Jaguar",
+          description: "Un livre modulaire et hautement personnalisable d'une seule page construit avec HTML5 UP...",
+          chapter1_title: "Chapitre 1",
+          chapter1_content: "Une jungle mésoaméricaine dense au crépuscule, enveloppée d'une brume mystique qui plane juste au-dessus du sol, tandis que les lucioles illuminent la scène de leur lumière douce et éclatante. Le chevalier Jaguar marche à travers le feuillage, s'imprégnant des verts et des bruns vibrants de la jungle, orné d'une armure complexe avec des motifs de jaguar, il avance prudemment, ses sens exacerbés par les murmures d'esprits anciens résonnant à travers les arbres.",
+          get_started: "Commencer",
+        },
+        ja: {
+          title: "ジャガーのこだま",
+          description: "HTML5 UPで作られた、モジュール式でカスタマイズ可能な一ページの本...",
+          chapter1_title: "第1章",
+          chapter1_content: "夕暮れ時のメソアメリカの密林。地面のすぐ上に浮かぶ神秘的な霧に包まれ、ホタルが柔らかく輝く光でその光景を照らします。ジャガーの騎士は、ジャングルの鮮やかな緑と茶色を吸い込みながら、葉の間を歩き、ジャガーをモチーフにした複雑な鎧を着て、木々に響く古代の精霊のささやきで感覚を高めながら、慎重に前に進みます。",
+          get_started: "始める",
+        },
+        "zh-CN": {
+          title: "美洲豹的回声",
+          description: "一个模块化的、高度可定制的单页书籍，由HTML5 UP构建...",
+          chapter1_title: "第一章",
+          chapter1_content: "黃昏時分，茂密的中美洲叢林籠罩在神秘的薄霧中，在地面上方盤旋，螢火蟲用柔和的光芒照亮了整個場景。美洲虎騎士穿過樹葉，沉浸在叢林生機勃勃的綠色和棕色之中，他穿著帶有美洲虎圖案的複雜盔甲，小心翼翼地向前走，他的感官因在樹林中迴響的古老靈魂的低語而增強。",
+          get_started: "开始",
+        }
+      };
+
+      // Function to switch language
+      function switchLanguage(lang) {
+        document.getElementById("title").innerText = translations[lang].title;
+        document.getElementById("description").innerText = translations[lang].description;
+        document.getElementById("chapter1-title").innerText = translations[lang].chapter1_title;
+        document.getElementById("chapter1-content").innerText = translations[lang].chapter1_content;
+        document.getElementById("get-started").innerText = translations[lang].get_started;
+      }
+
+      // Event listener for the dropdown
+      document.getElementById("languageSelector").addEventListener("change", function () {
+        const selectedLang = this.value;
+        switchLanguage(selectedLang);
+      });
+    </script>
+
 
 	</body>
 </html>
